@@ -31,7 +31,6 @@ export default function AdminLogin() {
     await signInWithEmailAndPassword(
       auth,
       'takt.npaz@gmail.com',
-      'elice@admins.com',
       password
     )
 
