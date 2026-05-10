@@ -35,19 +35,6 @@ export default function AdminLogin() {
 
 const [authorized, setAuthorized] = useState(false)
 
-useEffect(() => {
-  const unsub = onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setAuthorized(true)
-    } else {
-  setAuthorized(false)  
-    }
-  })
-
-  return () => unsub()
-}, [])
-
-
 
   // LOAD GUEST LIST
   useEffect(() => {
@@ -113,7 +100,6 @@ useEffect(() => {
 
   // LOGIN PAGE
   if (!loggedIn) {
-    if (!authorized) return null
     return (
       <div style={styles.loginPage}>
         <div style={styles.loginBox}>
