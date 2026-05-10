@@ -8,6 +8,7 @@ import {
 } from 'firebase/firestore'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth } from '../firebase/config'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 import { db } from '../firebase/config'
 
@@ -23,15 +24,23 @@ export default function AdminLogin() {
   const [guestSeats, setGuestSeats] = useState(1)
 
   // LOGIN
-  function handleLogin(e) {
-    e.preventDefault()
+  async function handleLogin(e) {
+  e.preventDefault()
 
-    if (password === 'pazword123') {
-      setLoggedIn(true)
-    } else {
-      alert('Wrong password')
-    }
+  try {
+    await signInWithEmailAndPassword(
+      auth,
+      'takt.npaz@gmail.com',
+      'elice@admins.com',
+      password
+    )
+
+    setLoggedIn(true)
+
+  } catch (err) {
+    alert('Wrong password')
   }
+}
 
 const [authorized, setAuthorized] = useState(false)
 
