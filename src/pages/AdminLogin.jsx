@@ -30,7 +30,7 @@ export default function AdminLogin() {
   try {
     await signInWithEmailAndPassword(
       auth,
-      'takt.npaz@gmail.com',
+      'admins@elice.com',
       password
     )
 
