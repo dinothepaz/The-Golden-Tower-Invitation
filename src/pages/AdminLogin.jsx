@@ -6,8 +6,11 @@ import {
   deleteDoc,
   doc
 } from 'firebase/firestore'
+import { onAuthStateChanged } from 'firebase/auth'
+import { auth } from '../firebase/config'
 
 import { db } from '../firebase/config'
+
 
 export default function AdminLogin() {
   const [loggedIn, setLoggedIn] = useState(false)
@@ -23,12 +26,28 @@ export default function AdminLogin() {
   function handleLogin(e) {
     e.preventDefault()
 
-    if (password === 'admin123') {
+    if (password === 'pazword123') {
       setLoggedIn(true)
     } else {
       alert('Wrong password')
     }
   }
+
+const [authorized, setAuthorized] = useState(false)
+
+useEffect(() => {
+  const unsub = onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setAuthorized(true)
+    } else {
+      window.location.href = '/admin-login'
+    }
+  })
+
+  return () => unsub()
+}, [])
+
+
 
   // LOAD GUEST LIST
   useEffect(() => {
@@ -94,6 +113,7 @@ export default function AdminLogin() {
 
   // LOGIN PAGE
   if (!loggedIn) {
+    if (!authorized) return null
     return (
       <div style={styles.loginPage}>
         <div style={styles.loginBox}>
@@ -224,7 +244,7 @@ export default function AdminLogin() {
       {rsvp.attending}
     </span>
 
-    <button
+    <button 
       onClick={() => deleteRSVP(rsvp.id)}
       style={styles.deleteBtn}
     >
