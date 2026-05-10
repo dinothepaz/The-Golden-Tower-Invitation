@@ -17,17 +17,6 @@ const GOLD_LIGHT = '#FFE7A0'
 const INK        = '#2D1F4A'
 const VIOLET     = '#3D2A6B'
 
-const q = query(
-  collection(db, 'rsvps'),
-  where('name', '==', form.name)
-)
-
-const existing = await getDocs(q)
-
-if (!existing.empty) {
-  alert('This guest has already RSVP’d.')
-  return
-}
 
 function normalize(str) {
   return str.toLowerCase().trim().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
