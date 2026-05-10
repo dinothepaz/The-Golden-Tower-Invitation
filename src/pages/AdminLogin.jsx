@@ -40,7 +40,7 @@ useEffect(() => {
     if (user) {
       setAuthorized(true)
     } else {
-      window.location.href = '/admin'
+  setAuthorized(false)  
     }
   })
 
